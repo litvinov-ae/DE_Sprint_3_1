@@ -1,0 +1,36 @@
+hadoop fs -ls /user/*
+Found 4 items
+-rw-r--r--   1 cloudera cloudera     736519 2022-11-24 14:00 /user/cloudera/voyna-i-mir-tom-1.txt
+-rw-r--r--   1 cloudera cloudera     770324 2022-11-24 14:00 /user/cloudera/voyna-i-mir-tom-2.txt
+-rw-r--r--   1 cloudera cloudera     843205 2022-11-24 14:00 /user/cloudera/voyna-i-mir-tom-3.txt
+-rw-r--r--   1 cloudera cloudera     697960 2022-11-24 14:00 /user/cloudera/voyna-i-mir-tom-4.txt
+
+hadoop fs -getmerge /user/* /user/2/output.txt
+[root@quickstart /]# cd /user/
+[root@quickstart user]# ls -la
+total 3012
+drwxr-xr-x 2 root root    4096 Nov 24 14:26 .
+drwxr-xr-x 1 root root    4096 Nov 24 14:26 ..
+-rw-r--r-- 1 root root 3048008 Nov 24 14:26 output.txt
+-rw-r--r-- 1 root root   23824 Nov 24 14:26 .output.txt.crc
+
+[root@quickstart user]# chmod 755 output.txt 
+[root@quickstart user]# ls -la
+total 3012
+drwxr-xr-x 2 root root    4096 Nov 24 14:26 .
+drwxr-xr-x 1 root root    4096 Nov 24 14:26 ..
+-rwxr-xr-x 1 root root 3048008 Nov 24 14:26 output.txt
+-rw-r--r-- 1 root root   23824 Nov 24 14:26 .output.txt.crc
+[root@quickstart user]# 
+
+hadoop fs -setrep 2 output.txt
+[root@quickstart user]# ls -la
+total 3012
+drwxr-xr-x 2 root root    4096 Nov 24 14:30 .
+drwxr-xr-x 1 root root    4096 Nov 24 14:30 ..
+-rwxr-xr-x 2 root root 3048008 Nov 24 14:30 output.txt
+-rw-r--r-- 1 root root   23824 Nov 24 14:30 .output.txt.crc
+
+hadoop fs -cat output.txt | wc -l
+10272
+
