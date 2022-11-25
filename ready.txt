@@ -1,0 +1,34 @@
+$ hadoop fs -ls /user/alelitvinov/study/*
+-rw-r--r--   3 alelitvinov hdfs     736519 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 alelitvinov hdfs     770324 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 alelitvinov hdfs     843205 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 alelitvinov hdfs     697960 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-4.txt
+
+$ hadoop fs -getmerge /user/alelitvinov/study/*.* output.txt
+$ hadoop fs -put output.txt /user/alelitvinov/study/
+
+$ hadoop fs -chmod 764 /user/alelitvinov/study/output.txt
+
+$ hadoop fs -ls /user/alelitvinov/study/*
+-rwxrw-r--   3 alelitvinov hdfs    3048008 2022-11-25 13:14 /user/alelitvinov/study/output.txt
+-rw-r--r--   3 alelitvinov hdfs     736519 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-1.txt
+-rw-r--r--   3 alelitvinov hdfs     770324 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-2.txt
+-rw-r--r--   3 alelitvinov hdfs     843205 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-3.txt
+-rw-r--r--   3 alelitvinov hdfs     697960 2022-11-24 14:05 /user/alelitvinov/study/voyna-i-mir-tom-4.txt
+
+$ hdfs dfs -du -h /user/alelitvinov/study/output.txt
+2.9 M  8.7 M  /user/alelitvinov/study/output.txt
+
+$ hdfs dfs -setrep -w 2 /user/alelitvinov/study/output.txt
+Replication 2 set: /user/alelitvinov/study/output.txt
+Waiting for /user/alelitvinov/study/output.txt ...
+WARNING: the waiting time may be long for DECREASING the number of replications.
+... done
+[alelitvinov@hdp3-client ~]$ hdfs dfs -du -h /user/alelitvinov/study/output.txt
+2.9 M  5.8 M  /user/alelitvinov/study/output.txt
+
+$ hadoop fs -cat /user/alelitvinov/study/output.txt | wc -l
+10272
+
+
+
